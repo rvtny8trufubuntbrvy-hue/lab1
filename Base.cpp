@@ -13,21 +13,21 @@ void Base::copyStr(char*& dest, const char* src) {
 }
 
 Base::Base() : fio(nullptr) {
-    std::cout << "[Base] constructor (no args)" << std::endl;
+    std::cout << "[Base] Вызван конструктор без параметров" << std::endl;
 }
 
 Base::Base(const char* name) : fio(nullptr) {
-    std::cout << "[Base] constructor (with args)" << std::endl;
+    std::cout << "[Base] Вызван конструктор с параметрами" << std::endl;
     copyStr(fio, name);
 }
 
 Base::Base(const Base& src) : fio(nullptr) {
-    std::cout << "[Base] copy constructor" << std::endl;
+    std::cout << "[Base] Вызван конструктор копирования" << std::endl;
     copyStr(fio, src.fio);
 }
 
 Base::~Base() {
-    std::cout << "[Base] destructor" << std::endl;
+    std::cout << "[Base] Вызван деструктор" << std::endl;
     delete[] fio;
 }
 

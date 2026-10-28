@@ -5,11 +5,11 @@
 #include <iostream>
 
 Admin::Admin() : Base(), position(nullptr), phone(nullptr), responsibility(nullptr) {
-    std::cout << "[Admin] constructor (no args)" << std::endl;
+    std::cout << "[Admin] Вызван конструктор без параметров" << std::endl;
 }
 
 Admin::~Admin() {
-    std::cout << "[Admin] destructor" << std::endl;
+    std::cout << "[Admin] Вызван деструктор" << std::endl;
     delete[] position;
     delete[] phone;
     delete[] responsibility;
@@ -17,30 +17,30 @@ Admin::~Admin() {
 
 void Admin::input() {
     char buf[256];
-    std::cout << "Vvedite FIO sotrudnika: ";
+    std::cout << "Введите ФИО сотрудника: ";
     std::cin.ignore();
     std::cin.getline(buf, 256);
     setFio(buf);
 
-    std::cout << "Vvedite dolzhnost: ";
+    std::cout << "Введите должность: ";
     std::cin.getline(buf, 256);
     copyStr(position, buf);
 
-    std::cout << "Vvedite telefon: ";
+    std::cout << "Введите телефон: ";
     std::cin.getline(buf, 256);
     copyStr(phone, buf);
 
-    std::cout << "Vvedite oblast otvetstvennosti: ";
+    std::cout << "Введите область ответственности: ";
     std::cin.getline(buf, 256);
     copyStr(responsibility, buf);
 }
 
 void Admin::print() const {
-    std::cout << "--- Administrativnyy personal ---\n"
-              << "FIO: " << getFio() << "\n"
-              << "Dolzhnost: " << (position ? position : "") << "\n"
-              << "Telefon: " << (phone ? phone : "") << "\n"
-              << "Oblast otvetstvennosti: " << (responsibility ? responsibility : "") << std::endl;
+    std::cout << "--- Административный персонал ---\n"
+              << "ФИО: " << getFio() << "\n"
+              << "Должность: " << (position ? position : "") << "\n"
+              << "Телефон: " << (phone ? phone : "") << "\n"
+              << "Область ответственности: " << (responsibility ? responsibility : "") << std::endl;
 }
 
 void Admin::save(std::ofstream& out) const {

@@ -5,36 +5,36 @@
 #include <iostream>
 
 Teacher::Teacher() : Base(), groups(nullptr), subjects(nullptr) {
-    std::cout << "[Teacher] constructor (no args)" << std::endl;
+    std::cout << "[Teacher] Вызван конструктор без параметров" << std::endl;
 }
 
 Teacher::~Teacher() {
-    std::cout << "[Teacher] destructor" << std::endl;
+    std::cout << "[Teacher] Вызван деструктор" << std::endl;
     delete[] groups;
     delete[] subjects;
 }
 
 void Teacher::input() {
     char buf[256];
-    std::cout << "Vvedite FIO prepodavatelya: ";
+    std::cout << "Введите ФИО преподавателя: ";
     std::cin.ignore();
     std::cin.getline(buf, 256);
     setFio(buf);
 
-    std::cout << "Vvedite gruppy (cherez zapyatuyu): ";
+    std::cout << "Введите группы (через запятую): ";
     std::cin.getline(buf, 256);
     copyStr(groups, buf);
 
-    std::cout << "Vvedite predmety (cherez zapyatuyu): ";
+    std::cout << "Введите предметы (через запятую): ";
     std::cin.getline(buf, 256);
     copyStr(subjects, buf);
 }
 
 void Teacher::print() const {
-    std::cout << "--- Prepodavatel ---\n"
-              << "FIO: " << getFio() << "\n"
-              << "Vedet gruppy: " << (groups ? groups : "") << "\n"
-              << "Predmety: " << (subjects ? subjects : "") << std::endl;
+    std::cout << "--- Преподаватель ---\n"
+              << "ФИО: " << getFio() << "\n"
+              << "Ведет группы: " << (groups ? groups : "") << "\n"
+              << "Предметы: " << (subjects ? subjects : "") << std::endl;
 }
 
 void Teacher::save(std::ofstream& out) const {

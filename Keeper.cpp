@@ -36,7 +36,7 @@ void Keeper::add(Base* item) {
 
 void Keeper::remove(int index) {
     if (index < 0 || index >= count || !head) {
-        throw std::out_of_range("Index out of range in Keeper container!");
+        throw std::out_of_range("Индекс за пределами допустимого диапазона контейнера Keeper!");
     }
 
     Node* temp = head;
@@ -59,7 +59,7 @@ void Keeper::remove(int index) {
 
 void Keeper::printAll() const {
     if (count == 0) {
-        std::cout << "Container is empty." << std::endl;
+        std::cout << "Контейнер пуст." << std::endl;
         return;
     }
     Node* temp = head;
@@ -74,7 +74,7 @@ void Keeper::printAll() const {
 
 void Keeper::saveToFile(const char* filename) const {
     std::ofstream out(filename, std::ios::binary);
-    if (!out.is_open()) throw std::runtime_error("Cannot open file for saving!");
+    if (!out.is_open()) throw std::runtime_error("Не удалось открыть файл для сохранения!");
 
     out.write((char*)&count, sizeof(count));
     Node* temp = head;
@@ -83,12 +83,12 @@ void Keeper::saveToFile(const char* filename) const {
         temp = temp->next;
     }
     out.close();
-    std::cout << "Data saved to file: " << filename << std::endl;
+    std::cout << "Данные успешно сохранены в файл: " << filename << std::endl;
 }
 
 void Keeper::loadFromFile(const char* filename) {
     std::ifstream in(filename, std::ios::binary);
-    if (!in.is_open()) throw std::runtime_error("Cannot open file for loading!");
+    if (!in.is_open()) throw std::runtime_error("Не удалось открыть файл для загрузки!");
 
     clear();
 
@@ -110,5 +110,5 @@ void Keeper::loadFromFile(const char* filename) {
         }
     }
     in.close();
-    std::cout << "Data restored from file: " << filename << std::endl;
+    std::cout << "Данные успешно восстановлены из файла: " << filename << std::endl;
 }

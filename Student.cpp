@@ -3,14 +3,15 @@
 #include <fstream>
 #include <cstring>
 #include <iostream>
+#include <limits> // Для защиты от букв
 
 Student::Student() : Base(), group(nullptr), specialty(nullptr), course(0), rating(0.0) {
-    std::cout << "[Student] constructor (no args)" << std::endl;
+    std::cout << "[Student] Вызван конструктор без параметров" << std::endl;
 }
 
 Student::Student(const char* name, const char* grp, const char* spec, int crs, double rat)
     : Base(name), group(nullptr), specialty(nullptr), course(crs), rating(rat) {
-    std::cout << "[Student] constructor (with args)" << std::endl;
+    std::cout << "[Student] Вызван конструктор с параметрами" << std::endl;
     copyStr(group, grp);
     copyStr(specialty, spec);
 }
@@ -18,13 +19,13 @@ Student::Student(const char* name, const char* grp, const char* spec, int crs, d
 Student::Student(const Student& src)
     : Base(src), group(nullptr), specialty(nullptr),
       course(src.course), rating(src.rating) {
-    std::cout << "[Student] copy constructor" << std::endl;
+    std::cout << "[Student] Вызван конструктор копирования" << std::endl;
     copyStr(group, src.group);
     copyStr(specialty, src.specialty);
 }
 
 Student::~Student() {
-    std::cout << "[Student] destructor" << std::endl;
+    std::cout << "[Student] Вызван деструктор" << std::endl;
     delete[] group;
     delete[] specialty;
 }
@@ -41,34 +42,46 @@ Student& Student::operator=(const Student& r) {
 
 void Student::input() {
     char buf[256];
-    std::cout << "Vvedite FIO studenta: ";
+    std::cout << "Введите ФИО студента: ";
     std::cin.ignore();
     std::cin.getline(buf, 256);
     setFio(buf);
 
-    std::cout << "Vvedite gruppu: ";
+    std::cout << "Введите группу: ";
     std::cin.getline(buf, 256);
     copyStr(group, buf);
 
-    std::cout << "Vvedite specialnost: ";
+    std::cout << "Введите наименование специальности: ";
     std::cin.getline(buf, 256);
     copyStr(specialty, buf);
 
-    std::cout << "Vvedite kurs: ";
+    std::cout << "Введите текущий курс: ";
     std::cin >> course;
+    while (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Ошибка! Введите число (курс): ";
+        std::cin >> course;
+    }
 
-    std::cout << "Vvedite sredniy ball: ";
+    std::cout << "Введите средний балл: ";
     std::cin >> rating;
+    while (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Ошибка! Введите число (балл): ";
+        std::cin >> rating;
+    }
     std::cin.ignore();
 }
 
 void Student::print() const {
-    std::cout << "--- Student ---\n"
-              << "FIO: " << getFio() << "\n"
-              << "Gruppa: " << (group ? group : "") << "\n"
-              << "Specialnost: " << (specialty ? specialty : "") << "\n"
-              << "Kurs: " << course << "\n"
-              << "Sredniy ball: " << rating << std::endl;
+    std::cout << "--- Студент ---\n"
+              << "ФИО: " << getFio() << "\n"
+              << "Группа: " << (group ? group : "") << "\n"
+              << "Специальность: " << (specialty ? specialty : "") << "\n"
+              << "Курс: " << course << "\n"
+              << "Средний балл: " << rating << std::endl;
 }
 
 void Student::save(std::ofstream& out) const {
